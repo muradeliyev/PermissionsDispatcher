@@ -5,7 +5,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.file.FileCollection
-import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
@@ -41,6 +41,7 @@ class AarToJarConversionPlugin implements Plugin<Project> {
         def configuration = project.configurations.create(CONFIGURATION_NAME)
 
         // Conversion Task
+        println("messi: $configuration")
         def conversionTask = project.tasks.create(TASK_NAME, ConvertAarToJarTask) {
             inputFiles = configuration
             jarOutputDir = project.file("$project.buildDir/tmp/converted-aars")
@@ -53,7 +54,7 @@ class AarToJarConversionPlugin implements Plugin<Project> {
 
     static class ConvertAarToJarTask extends DefaultTask {
 
-        @Input
+        @InputFile
         FileCollection inputFiles
 
         @OutputDirectory
