@@ -1,23 +1,23 @@
 buildscript {
     repositories {
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         mavenCentral()
-        google()
-        jcenter()
+        gradlePluginPortal()
+        maven {
+            url = uri("https://jitpack.io")
+        }
     }
+
     dependencies {
         classpath "com.android.tools.build:gradle:$GRADLE_PLUGIN_VERSION"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$DOKKA_VERSION"
         classpath "com.vanniktech:gradle-maven-publish-plugin:$PUBLISH_PLUGIN_VERSION"
-    }
-}
-
-allprojects {
-    repositories {
-        mavenCentral()
-        google()
-        jcenter()
-        // TODO: remove after publishing kompile-testing to Maven Central
-        maven { url 'https://jitpack.io' }
     }
 }

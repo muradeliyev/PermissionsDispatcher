@@ -1,24 +1,23 @@
 apply plugin: 'java'
 apply plugin: 'kotlin'
 
-targetCompatibility = JavaVersion.VERSION_1_6
-sourceCompatibility = JavaVersion.VERSION_1_6
+java {
+    sourceCompatibility Versions.JAVA_VERSION
+    targetCompatibility Versions.JAVA_VERSION
+}
 
 configurations {
     lintChecks
 }
 
 dependencies {
-    implementation "com.android.tools.lint:lint-api:$LINT_VERSION"
-    implementation "com.android.tools.lint:lint-checks:$LINT_VERSION"
-    implementation "com.android.tools.lint:lint:$LINT_VERSION"
-
-    implementation "androidx.core:core:$ANDROIDX_LIBRARY_VERSION"
-    implementation "androidx.fragment:fragment:$ANDROIDX_LIBRARY_VERSION"
+    implementation "com.android.tools.lint:lint-api:31.9.2"
+    implementation "com.android.tools.lint:lint-checks:31.9.2"
+    implementation "com.android.tools.lint:lint:31.9.2"
 
     testImplementation "junit:junit:$JUNIT_VERSION"
-    testImplementation "com.android.tools.lint:lint-tests:$LINT_VERSION"
-    testImplementation "com.android.tools:testutils:$LINT_VERSION"
+    testImplementation "com.android.tools.lint:lint-tests:31.9.2"
+    testImplementation "com.android.tools:testutils:31.9.2"
 
     lintChecks files(jar)
 }

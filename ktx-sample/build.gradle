@@ -11,13 +11,14 @@ android {
         versionName "1.0"
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility Versions.JAVA_VERSION
+        targetCompatibility Versions.JAVA_VERSION
     }
+    namespace = "dispatcher.ktx.sample"
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
-    implementation "androidx.appcompat:appcompat:$ANDROIDX_LIBRARY_VERSION"
+    implementation "androidx.appcompat:appcompat:$ANDROIDX_APPCOMPAT_VERSION"
     implementation project(':ktx')
 }

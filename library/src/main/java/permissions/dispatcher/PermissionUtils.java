@@ -17,7 +17,7 @@ public final class PermissionUtils {
     private static final SimpleArrayMap<String, Integer> MIN_SDK_PERMISSIONS;
 
     static {
-        MIN_SDK_PERMISSIONS = new SimpleArrayMap<String, Integer>(13);
+        MIN_SDK_PERMISSIONS = new SimpleArrayMap<>(13);
         MIN_SDK_PERMISSIONS.put("com.android.voicemail.permission.ADD_VOICEMAIL", 14);
         MIN_SDK_PERMISSIONS.put("android.permission.READ_CALL_LOG", 16);
         MIN_SDK_PERMISSIONS.put("android.permission.READ_EXTERNAL_STORAGE", 16);

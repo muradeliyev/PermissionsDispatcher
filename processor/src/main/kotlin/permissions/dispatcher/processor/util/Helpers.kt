@@ -19,24 +19,38 @@ fun typeMirrorOf(className: String): TypeMirror = ELEMENT_UTILS.getTypeElement(c
 
 fun typeNameOf(it: Element): TypeName = TypeName.get(it.asType())
 
-fun requestCodeFieldName(e: ExecutableElement) = "$GEN_REQUEST_CODE_PREFIX${e.simpleString().trimDollarIfNeeded().toUpperCase()}"
+fun requestCodeFieldName(e: ExecutableElement) =
+    "$GEN_REQUEST_CODE_PREFIX${e.simpleString().trimDollarIfNeeded().uppercase()}"
 
-fun permissionFieldName(e: ExecutableElement) = "$GEN_PERMISSION_PREFIX${e.simpleString().trimDollarIfNeeded().toUpperCase()}"
+fun permissionFieldName(e: ExecutableElement) =
+    "$GEN_PERMISSION_PREFIX${e.simpleString().trimDollarIfNeeded().uppercase()}"
 
-fun pendingRequestFieldName(e: ExecutableElement) = "$GEN_PENDING_PREFIX${e.simpleString().trimDollarIfNeeded().toUpperCase()}"
+fun pendingRequestFieldName(e: ExecutableElement) =
+    "$GEN_PENDING_PREFIX${e.simpleString().trimDollarIfNeeded().uppercase()}"
 
-fun withPermissionCheckMethodName(e: ExecutableElement) = "${e.simpleString().trimDollarIfNeeded()}$GEN_WITH_PERMISSION_CHECK_SUFFIX"
+fun withPermissionCheckMethodName(e: ExecutableElement) =
+    "${e.simpleString().trimDollarIfNeeded()}$GEN_WITH_PERMISSION_CHECK_SUFFIX"
 
 fun Element.kotlinMetadata(): KotlinClassMetadata? =
-        getAnnotation(Metadata::class.java)?.run {
-            KotlinClassMetadata.read(KotlinClassHeader(kind, metadataVersion, data1, data2, extraString, packageName, extraInt))
-        }
+    getAnnotation(Metadata::class.java)?.run {
+        KotlinClassMetadata.read(
+            KotlinClassHeader(
+                kind,
+                metadataVersion,
+                data1,
+                data2,
+                extraString,
+                packageName,
+                extraInt
+            )
+        )
+    }
 
 val Element.isInternal: Boolean
     get() {
         val classMetadata = kotlinMetadata()
                 as? KotlinClassMetadata.Class
-                ?: return false
+            ?: return false
 
         var returnValue = false
         classMetadata.accept(object : KmClassVisitor() {
@@ -49,23 +63,36 @@ val Element.isInternal: Boolean
         return returnValue
     }
 
-fun ExecutableElement.argumentFieldName(arg: Element) = "${simpleString()}${arg.simpleString().capitalize()}"
+fun ExecutableElement.argumentFieldName(arg: Element) =
+    "${simpleString()}${arg.simpleString().capitalize()}"
 
-fun ExecutableElement.proceedOnShowRationaleMethodName() = "proceed${simpleString().trimDollarIfNeeded().capitalize()}$GEN_PERMISSION_REQUEST_SUFFIX"
+fun ExecutableElement.proceedOnShowRationaleMethodName() =
+    "proceed${simpleString().trimDollarIfNeeded().capitalize()}$GEN_PERMISSION_REQUEST_SUFFIX"
 
-fun ExecutableElement.cancelOnShowRationaleMethodName() = "cancel${simpleString().trimDollarIfNeeded().capitalize()}$GEN_PERMISSION_REQUEST_SUFFIX"
+fun ExecutableElement.cancelOnShowRationaleMethodName() =
+    "cancel${simpleString().trimDollarIfNeeded().capitalize()}$GEN_PERMISSION_REQUEST_SUFFIX"
 
 fun permissionRequestTypeName(rpe: RuntimePermissionsElement, e: ExecutableElement) =
-        "${rpe.inputClassName}${e.simpleString().trimDollarIfNeeded().capitalize()}$GEN_PERMISSION_REQUEST_SUFFIX"
+    "${rpe.inputClassName}${
+        e.simpleString().trimDollarIfNeeded().capitalize()
+    }$GEN_PERMISSION_REQUEST_SUFFIX"
 
-fun <A : Annotation> findMatchingMethodForNeeds(needsElement: ExecutableElement, otherElements: List<ExecutableElement>, annotationType: Class<A>): ExecutableElement? {
-    val value: List<String> = needsElement.getAnnotation(NeedsPermission::class.java).permissionValue()
+fun <A : Annotation> findMatchingMethodForNeeds(
+    needsElement: ExecutableElement,
+    otherElements: List<ExecutableElement>,
+    annotationType: Class<A>
+): ExecutableElement? {
+    val value: List<String> =
+        needsElement.getAnnotation(NeedsPermission::class.java).permissionValue()
     return otherElements.firstOrNull {
         it.getAnnotation(annotationType).permissionValue() == value
     }
 }
 
-fun varargsParametersCodeBlock(needsElement: ExecutableElement, withCache: Boolean = false): CodeBlock {
+fun varargsParametersCodeBlock(
+    needsElement: ExecutableElement,
+    withCache: Boolean = false
+): CodeBlock {
     val varargsCall = CodeBlock.builder()
     needsElement.parameters.forEachIndexed { i, it ->
         val name = if (withCache) needsElement.argumentFieldName(it) else it.simpleString()
@@ -77,7 +104,10 @@ fun varargsParametersCodeBlock(needsElement: ExecutableElement, withCache: Boole
     return varargsCall.build()
 }
 
-fun varargsKtParametersCodeBlock(needsElement: ExecutableElement, withCache: Boolean = false): com.squareup.kotlinpoet.CodeBlock {
+fun varargsKtParametersCodeBlock(
+    needsElement: ExecutableElement,
+    withCache: Boolean = false
+): com.squareup.kotlinpoet.CodeBlock {
     val varargsCall = com.squareup.kotlinpoet.CodeBlock.builder()
     needsElement.parameters.forEachIndexed { i, it ->
         val name = if (withCache) "${needsElement.argumentFieldName(it)}!!" else it.simpleString()

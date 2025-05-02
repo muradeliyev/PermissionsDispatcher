@@ -38,7 +38,7 @@ final class AndroidAwareClassLoader {
 
             return new URLClassLoader(urls, ClassLoader.getSystemClassLoader());
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
