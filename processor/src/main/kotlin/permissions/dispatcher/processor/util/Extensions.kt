@@ -1,3 +1,5 @@
+@file:OptIn(DelicateKotlinPoetApi::class)
+
 package permissions.dispatcher.processor.util
 
 import com.squareup.kotlinpoet.*
@@ -143,3 +145,5 @@ fun TypeName.correctJavaTypeToKotlinType(): TypeName {
  * Returns this TypeName as nullable or non-nullable based on the given condition.
  */
 fun TypeName.mapToNullableTypeIf(nullable: Boolean) = copy(nullable = nullable)
+
+fun String.capitalizeFirstLetter() = replaceFirstChar { it.uppercase() }

@@ -19,6 +19,9 @@ android {
         sourceCompatibility Versions.JAVA_VERSION
         targetCompatibility Versions.JAVA_VERSION
     }
+    kotlinOptions {
+        jvmTarget = Versions.JVM_TARGET
+    }
     sourceSets {
         main.java.srcDirs += "src/main/kotlin"
     }
@@ -47,7 +50,7 @@ dependencies {
     testImplementation "junit:junit:$JUNIT_VERSION"
     testImplementation 'org.jetbrains.kotlin:kotlin-reflect:2.1.20'
     // TODO: update mockito and powermock
-    testImplementation 'org.mockito:mockito-core:5.17.0'
+    testImplementation "org.mockito:mockito-core:$MOCKITO_KOTLIN_VERSION"
     testImplementation 'org.powermock:powermock-api-mockito:1.7.4'
     testImplementation 'org.powermock:powermock-module-junit4:2.0.9'
     testImplementation 'org.powermock:powermock-module-junit4-rule:2.0.9'

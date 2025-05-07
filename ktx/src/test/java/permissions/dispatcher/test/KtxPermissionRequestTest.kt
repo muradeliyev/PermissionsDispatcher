@@ -1,11 +1,12 @@
 package permissions.dispatcher.test
 
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Mockito.mock
 import org.mockito.Mockito.never
-import permissions.dispatcher.ktx.*
+import org.mockito.kotlin.verify
+import permissions.dispatcher.ktx.Fun
+import permissions.dispatcher.ktx.KtxPermissionRequest
 
 class KtxPermissionRequestTest {
     private lateinit var onPermissionDenied: Fun

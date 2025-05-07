@@ -10,16 +10,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import permissions.dispatcher.PermissionUtils
 import permissions.dispatcher.PermissionUtils.verifyPermissions
-import java.util.*
+import java.util.Random
 
 internal sealed class PermissionRequestFragment : Fragment() {
     protected val requestCode = Random().nextInt(1000)
     protected lateinit var viewModel: PermissionRequestViewModel
 
-    override fun onAttach(context: Context?) {
+
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         retainInstance = true
-        viewModel = ViewModelProvider(requireActivity()).get(PermissionRequestViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity())[PermissionRequestViewModel::class.java]
     }
 
     protected fun dismiss() =

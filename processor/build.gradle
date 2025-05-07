@@ -11,11 +11,13 @@ apply plugin: AndroidJarDependencyPlugin
 // Connect sources & tests to library project
 //convertAarsToJar.dependsOn ":library:assembleRelease"
 
-configurations.all {
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        def requested = details.requested
-        if (requested.group == 'org.jetbrains.kotlin' && requested.name == 'kotlin-reflect') {
-            details.useVersion KOTLIN_VERSION
+beforeEvaluate {
+    configurations.configureEach {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'org.jetbrains.kotlin' && requested.name == 'kotlin-reflect') {
+                details.useVersion KOTLIN_VERSION
+            }
         }
     }
 }
