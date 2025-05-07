@@ -38,9 +38,6 @@ include(
     ":library",
     ":processor",
     ":lint",
-    ":sample",
-    ":test",
     ":annotation",
     ":ktx",
-//    ":ktx-sample",
 )
