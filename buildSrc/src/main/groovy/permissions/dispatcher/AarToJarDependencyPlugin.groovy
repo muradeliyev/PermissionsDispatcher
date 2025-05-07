@@ -4,7 +4,6 @@ import org.apache.commons.io.FileUtils
 import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
@@ -41,9 +40,8 @@ class AarToJarConversionPlugin implements Plugin<Project> {
         def configuration = project.configurations.create(CONFIGURATION_NAME)
 
         // Conversion Task
-        println("messi: $configuration")
-        def conversionTask = project.tasks.create(TASK_NAME, ConvertAarToJarTask) {
-            inputFiles = configuration
+        def conversionTask = project.tasks.register(TASK_NAME, ConvertAarToJarTask) {
+            inputFiles = configuration.files
             jarOutputDir = project.file("$project.buildDir/tmp/converted-aars")
             classpathOutputDir = project.file("$project.buildDir/resources/test")
         }
@@ -55,7 +53,7 @@ class AarToJarConversionPlugin implements Plugin<Project> {
     static class ConvertAarToJarTask extends DefaultTask {
 
         @InputFile
-        FileCollection inputFiles
+        Set<File> inputFiles
 
         @OutputDirectory
         File jarOutputDir
@@ -94,9 +92,11 @@ class AarToJarConversionPlugin implements Plugin<Project> {
 
                 paths += destinationFile.toURI().toURL().toString()
             }
-
-            def classpathFile = new File(classpathOutputDir, CLASSPATH_FILE_NAME)
-            classpathFile.withWriter { it.write(paths.join("\n")) }
+            println("messi: ${paths.isEmpty()}")
+            if (!paths.isEmpty()) {
+                def classpathFile = new File(classpathOutputDir, CLASSPATH_FILE_NAME)
+                classpathFile.withWriter { it.write(paths.join("\n")) }
+            }
         }
     }
 }

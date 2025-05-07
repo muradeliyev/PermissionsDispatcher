@@ -1,7 +1,6 @@
 package permissions.dispatcher;
 
-import androidx.annotation.Nullable;
-
+import com.android.annotations.Nullable;
 import com.android.tools.lint.client.api.UElementHandler;
 import com.android.tools.lint.detector.api.Category;
 import com.android.tools.lint.detector.api.Detector;
