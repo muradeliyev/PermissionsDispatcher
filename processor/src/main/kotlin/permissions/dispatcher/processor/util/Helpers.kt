@@ -64,17 +64,17 @@ val Element.isInternal: Boolean
     }
 
 fun ExecutableElement.argumentFieldName(arg: Element) =
-    "${simpleString()}${arg.simpleString().capitalize()}"
+    "${simpleString()}${arg.simpleString().capitalizeFirstLetter()}"
 
 fun ExecutableElement.proceedOnShowRationaleMethodName() =
-    "proceed${simpleString().trimDollarIfNeeded().capitalize()}$GEN_PERMISSION_REQUEST_SUFFIX"
+    "proceed${simpleString().trimDollarIfNeeded().capitalizeFirstLetter()}$GEN_PERMISSION_REQUEST_SUFFIX"
 
 fun ExecutableElement.cancelOnShowRationaleMethodName() =
-    "cancel${simpleString().trimDollarIfNeeded().capitalize()}$GEN_PERMISSION_REQUEST_SUFFIX"
+    "cancel${simpleString().trimDollarIfNeeded().capitalizeFirstLetter()}$GEN_PERMISSION_REQUEST_SUFFIX"
 
 fun permissionRequestTypeName(rpe: RuntimePermissionsElement, e: ExecutableElement) =
     "${rpe.inputClassName}${
-        e.simpleString().trimDollarIfNeeded().capitalize()
+        e.simpleString().trimDollarIfNeeded().capitalizeFirstLetter()
     }$GEN_PERMISSION_REQUEST_SUFFIX"
 
 fun <A : Annotation> findMatchingMethodForNeeds(

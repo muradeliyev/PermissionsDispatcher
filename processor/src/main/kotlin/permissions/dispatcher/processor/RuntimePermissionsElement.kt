@@ -1,7 +1,10 @@
+@file:OptIn(DelicateKotlinPoetApi::class)
+
 package permissions.dispatcher.processor
 
 import com.squareup.javapoet.TypeName
 import com.squareup.javapoet.TypeVariableName
+import com.squareup.kotlinpoet.DelicateKotlinPoetApi
 import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.asTypeVariableName
 import permissions.dispatcher.NeedsPermission

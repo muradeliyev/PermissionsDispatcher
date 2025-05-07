@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin: "com.vanniktech.maven.publish"
 
 android {
@@ -16,6 +17,10 @@ android {
         targetCompatibility Versions.JAVA_VERSION
     }
 
+    kotlinOptions {
+        jvmTarget = Versions.JVM_TARGET
+    }
+
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
@@ -25,9 +30,9 @@ android {
 //    }
 }
 
-configurations {
-    lintChecks
-}
+//configurations {
+//    lintChecks
+//}
 
 dependencies {
     implementation "androidx.core:core:1.16.0"
@@ -43,14 +48,18 @@ dependencies {
 //    lintChecks project(path: ':lint', configuration: 'lintChecks')
 }
 
-tasks.register("copyLintJar", Copy) {
-    it.from(configurations.lintChecks) {
-        rename { 'lint.jar' }
-    }
-    it.into 'build/intermediates/lint/'
-}
+//tasks.register("copyLintJar", Copy) {
+//    it.from(configurations.lintChecks) {
+//        rename { 'lint.jar' }
+//    }
+//    it.into 'build/intermediates/lint/'
+//}
+//
+//project.afterEvaluate {
+//    def compileLintTask = project.tasks.find { it.name == 'compileLint' }
+//    compileLintTask.dependsOn(copyLintJar)
+//}
 
-project.afterEvaluate {
-    def compileLintTask = project.tasks.find { it.name == 'compileLint' }
-    compileLintTask.dependsOn(copyLintJar)
+mavenPublishing {
+    publishToMavenCentral()
 }

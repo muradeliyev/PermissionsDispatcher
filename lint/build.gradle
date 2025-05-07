@@ -6,6 +6,10 @@ java {
     targetCompatibility Versions.JAVA_VERSION
 }
 
+kotlin {
+    jvmToolchain(Versions.JVM_TOOLCHAIN)
+}
+
 configurations {
     lintChecks
 }
